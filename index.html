@@ -261,5 +261,128 @@ a:focus-visible,button:focus-visible{outline:3px solid #e6bf86!important;outline
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.mission-card,.tool-card,.button,.topbar nav a{transition:none!important;transform:none!important}}
 </style><script>
 (function(){const button=document.querySelector(".nav-toggle");const nav=document.getElementById("primary-navigation");if(!button||!nav)return;const close=()=>{button.setAttribute("aria-expanded","false");nav.classList.remove("is-open")};button.addEventListener("click",()=>{const open=button.getAttribute("aria-expanded")!=="true";button.setAttribute("aria-expanded",String(open));nav.classList.toggle("is-open",open)});nav.querySelectorAll("a").forEach(link=>link.addEventListener("click",close));document.addEventListener("keydown",event=>{if(event.key==="Escape")close()});document.addEventListener("click",event=>{if(!button.contains(event.target)&&!nav.contains(event.target))close()});})();
+</script>
+<script id="cv-video-modal-script">
+/* Correctif ciblé pour le CV GitHub Pages de Christophe Dura.
+ * À intégrer dans index.html : <script src="cv-video-modal.js" defer><\/script>
+ * Il transforme le bouton « Ma vidéo » et la photo en déclencheurs d'une fenêtre.
+ */
+(() => {
+  "use strict";
+
+  const videoButton = document.querySelector('.hero-actions a[href="#video"]');
+  const portrait = document.querySelector('.portrait-art');
+  if (!videoButton && !portrait) return;
+
+  const loomEmbed = 'https://www.loom.com/embed/b3d6095a15aa4807b46aeef630b20282';
+  const loomPage = 'https://www.loom.com/share/b3d6095a15aa4807b46aeef630b20282';
+
+  const style = document.createElement('style');
+  style.textContent = `
+    .cv-video-trigger { cursor: pointer; }
+    .cv-video-trigger:focus-visible { outline: 3px solid #d5af83; outline-offset: 5px; }
+    .cv-video-modal {
+      width: min(980px, calc(100vw - 32px));
+      max-height: calc(100dvh - 32px);
+      padding: 0;
+      border: 1px solid #a68d6b;
+      border-radius: 16px;
+      background: #101b1c;
+      color: #f8f6f1;
+      box-shadow: 0 28px 90px #0009;
+      overflow: auto;
+    }
+    .cv-video-modal::backdrop { background: rgba(0, 0, 0, .82); }
+    .cv-video-modal__header {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 16px; padding: 16px 20px;
+      font: 600 16px/1.4 system-ui, sans-serif;
+    }
+    .cv-video-modal__close {
+      flex: none; width: 40px; height: 40px;
+      border: 1px solid #a68d6b; border-radius: 50%;
+      background: transparent; color: #fff; cursor: pointer;
+      font: 24px/1 system-ui, sans-serif;
+    }
+    .cv-video-modal__close:hover, .cv-video-modal__close:focus-visible {
+      background: #a68d6b; color: #101b1c;
+    }
+    .cv-video-modal__frame { width: 100%; aspect-ratio: 16 / 9; background: #000; }
+    .cv-video-modal__frame iframe { display: block; width: 100%; height: 100%; border: 0; }
+    .cv-video-modal__footer { padding: 12px 20px 16px; font: 14px/1.4 system-ui, sans-serif; }
+    .cv-video-modal__footer a { color: #e2bc8d; }
+    @media (max-width: 580px) {
+      .cv-video-modal__header { padding: 12px; font-size: 14px; }
+      .cv-video-modal__footer { padding: 12px; }
+    }
+  `;
+  document.head.appendChild(style);
+
+  const modal = document.createElement('dialog');
+  modal.id = 'cv-video-modal';
+  modal.className = 'cv-video-modal';
+  modal.setAttribute('aria-labelledby', 'cv-video-modal-title');
+  modal.innerHTML = `
+    <div class="cv-video-modal__header">
+      <span id="cv-video-modal-title">Ma présentation en vidéo · 2 min 42 s</span>
+      <button class="cv-video-modal__close" type="button" aria-label="Fermer la vidéo">×</button>
+    </div>
+    <div class="cv-video-modal__frame">
+      <iframe title="Présentation vidéo de Christophe Dura"
+        allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+    </div>
+    <div class="cv-video-modal__footer">
+      Si la vidéo ne s'affiche pas, <a href="${loomPage}" target="_blank" rel="noopener noreferrer">la regarder sur Loom</a>.
+    </div>
+  `;
+  document.body.appendChild(modal);
+
+  const iframe = modal.querySelector('iframe');
+  const closeButton = modal.querySelector('.cv-video-modal__close');
+  let lastTrigger = null;
+
+  function openVideo(event) {
+    if (event) event.preventDefault();
+    lastTrigger = event?.currentTarget || document.activeElement;
+    if (typeof modal.showModal !== 'function') {
+      window.open(loomPage, '_blank', 'noopener,noreferrer');
+      return;
+    }
+    if (!modal.open) {
+      iframe.src = loomEmbed;
+      modal.showModal();
+    }
+    closeButton.focus();
+  }
+
+  videoButton?.addEventListener('click', openVideo);
+  if (videoButton) {
+    videoButton.setAttribute('aria-haspopup', 'dialog');
+    videoButton.setAttribute('aria-controls', 'cv-video-modal');
+    videoButton.textContent = 'Ma vidéo (2 min 42 s) ▶';
+  }
+
+  if (portrait) {
+    portrait.classList.add('cv-video-trigger');
+    portrait.setAttribute('role', 'button');
+    portrait.setAttribute('tabindex', '0');
+    portrait.setAttribute('aria-label', 'Voir la présentation vidéo de Christophe Dura');
+    portrait.setAttribute('aria-haspopup', 'dialog');
+    portrait.addEventListener('click', openVideo);
+    portrait.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter' || event.key === ' ') openVideo(event);
+    });
+  }
+
+  closeButton.addEventListener('click', () => modal.close());
+  modal.addEventListener('click', (event) => {
+    if (event.target === modal) modal.close();
+  });
+  modal.addEventListener('close', () => {
+    iframe.removeAttribute('src'); // Arrête la lecture de Loom.
+    if (lastTrigger && typeof lastTrigger.focus === 'function') lastTrigger.focus();
+  });
+})();
+
 </script></body>
 </html>
