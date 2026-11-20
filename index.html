@@ -47,6 +47,7 @@ html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);
 @media(max-width:700px){.adn,.volets{grid-template-columns:1fr}}
 .toolbox{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:34px}.tool-card{border:1px solid var(--edge);background:var(--card);padding:30px}.tool-card .num{color:var(--accent);font-family:Georgia,serif;font-size:22px}.tool-card h3{margin:16px 0 14px;font-size:18px;font-weight:670}.tool-card ul{list-style:none;margin:0;padding:0}.tool-card li{display:flex;justify-content:space-between;gap:14px;padding:9px 0;border-top:1px solid var(--edge);font-size:14px;color:#d8dcd6}.tool-card .lvl{font-style:normal;font-size:11px;white-space:nowrap;color:var(--muted);border:1px solid var(--edge);padding:2px 8px;border-radius:20px;height:fit-content}.tool-card .lvl.on{color:var(--bg);background:var(--accent);border-color:var(--accent)}.toolbox-note{color:var(--muted);font-size:14px;margin-top:22px}@media(max-width:700px){.toolbox{grid-template-columns:1fr}.tool-card{padding:24px}}
 .boite{margin:32px 0 12px}.boite img{display:block;width:100%;max-width:900px;height:auto;margin:0 auto;border-radius:18px}.boite figcaption{max-width:720px;margin:12px auto 0;text-align:center;font-size:.95rem;line-height:1.5;color:var(--muted,#4c5c6c)}
+.surf-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin:8px 0 22px}.surf{border:1px solid var(--edge);border-radius:8px;padding:20px 22px;min-width:0}.surf span{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}.surf h3{margin:6px 0 8px;font-size:21px}.surf p{margin:0;font-size:15px;line-height:1.6;opacity:.85}.surf.next{border-color:var(--accent);border-width:2px}@media(max-width:900px){.surf-grid{grid-template-columns:1fr 1fr}}@media(max-width:560px){.surf-grid{grid-template-columns:1fr}}
 </style>
 <style id="v2-presentation">
 /* V2 · Direction commerciale premium — présentation uniquement */
@@ -276,18 +277,29 @@ a:focus-visible,button:focus-visible{outline:3px solid #e6bf86!important;outline
 <body>
 <header class="shell topbar">
   <a href="#accueil" class="monogram" aria-label="Christophe Dura, accueil"><em>CD</em><span>CHRISTOPHE DURA</span></a>
-  <button class="nav-toggle" type="button" aria-label="Navigation principale" aria-expanded="false" aria-controls="primary-navigation"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button><nav id="primary-navigation" aria-label="Navigation principale"><a href="#triangle">Mon triangle</a><a href="#metier">Mon métier</a><a href="#outils">Mes outils</a><a href="#reseau">Mon réseau</a><a href="#parcours">Parcours</a><a href="CV_Christophe_Dura_Manager_Commercial.pdf" class="nav-cv" target="_blank" rel="noopener">CV PDF ↗</a></nav>
+  <button class="nav-toggle" type="button" aria-label="Navigation principale" aria-expanded="false" aria-controls="primary-navigation"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button><nav id="primary-navigation" aria-label="Navigation principale"><a href="#triangle">Mon triangle</a><a href="#surfaces">Multisurface</a><a href="#metier">Mon métier</a><a href="#outils">Mes outils</a><a href="#reseau">Mon réseau</a><a href="#parcours">Parcours</a><a href="CV_Christophe_Dura_Manager_Commercial.pdf" class="nav-cv" target="_blank" rel="noopener">CV PDF ↗</a></nav>
 </header>
 <main id="accueil">
 <section class="hero" aria-label="Présentation de Christophe Dura"><div class="shell hero-inner"><div>
   <div class="eyebrow">Un métier · Des outils · Un réseau</div>
   <h1>Christophe <span>Dura.</span></h1>
-  <p class="hero-lead">Je vends, et je fais vendre.</p>
+  <p class="hero-lead">Je vends, et je fais vendre.<br>Je change de surface, pas de métier.</p>
   <p class="hero-sub">Manager commercial à Toulouse. J’arrive avec trois atouts : un métier, des outils que j’ai construits, un réseau en Occitanie. Résultat : je produis vite.</p>
   <div class="hero-actions"><a class="button primary" href="https://cal.com/christophe-dura-grw4ws/15min" target="_blank" rel="noopener">Réserver 15 minutes <span aria-hidden="true">↗</span></a><a class="button outline" href="CV_Christophe_Dura_Manager_Commercial.pdf" target="_blank" rel="noopener">Télécharger mon CV <span aria-hidden="true">↓</span></a><a class="button outline" href="#video">Ma vidéo (2 min) <span aria-hidden="true">▶</span></a></div>
   <div class="hero-note">Tournefeuille (Toulouse) · Disponible immédiatement</div>
 </div><div class="portrait-art"><img class="portrait-photo" src="Christophe-dura.jpg?v=v2-20261103" alt="Portrait de Christophe Dura" width="1254" height="1254"><div class="art-label"><span>Métier</span><span>Outils</span><span>Réseau</span></div></div></div></section>
 <section class="about shell" id="a-propos" aria-labelledby="about-title"><div class="about-grid"><div><p class="section-tag">À propos</p><h2 class="section-title" id="about-title">Un métier.<br>Des outils.<br>Un réseau.</h2></div><div class="about-copy"><p>Je vends, et je fais vendre. <strong>12 ans à la tête d’entreprises</strong> : j’ai recruté, vendu, géré, négocié et outillé. Chez Finexial, j’ai recruté 5 managers pour animer 50 agents indépendants. Chez CD2I, j’ai dirigé pendant 8 ans un centre de profit de 25 commerciaux, avec un plateau de 12 téléopérateurs.</p><p>Ma place : là où il faut <strong>faire vendre une équipe ou un réseau</strong>, plus que connaître le produit. Le produit, je l’apprends avec vos meilleurs vendeurs. Pendant ce temps, mes outils et mon réseau travaillent.</p></div></div></section>
+<section class="section shell" id="surfaces" aria-labelledby="surfaces-title"><div class="section-intro"><div><p class="section-tag">Multisurface</p><h2 class="section-title" id="surfaces-title">Je change de surface, pas de métier.</h2><p class="section-desc">Au tennis, un joueur passe de la terre battue au gazon. Le jeu est le même, les rebonds changent. Je ne viens pas apprendre à jouer : je viens apprendre votre surface.</p></div></div>
+<div class="surf-grid">
+<div class="surf"><span>Surface 1</span><h3>Bureautique</h3><p>Xerox : la prospection et la vente aux entreprises.</p></div>
+<div class="surf"><span>Surface 2</span><h3>Investissement</h3><p>Crédit Agricole Immobilier, Finexial, CD2I : des ventes longues, à plusieurs décideurs.</p></div>
+<div class="surf"><span>Surface 3</span><h3>Financement</h3><p>Wealth A7 : 6 agents recrutés, des chefs d’entreprise et leurs experts-comptables.</p></div>
+<div class="surf"><span>Surface 4</span><h3>Assurance</h3><p>Allianz : Top 10 sur 100, sans portefeuille de départ.</p></div>
+<div class="surf"><span>Surface 5</span><h3>Services juridiques</h3><p>Cabinet d’avocats : une organisation commerciale construite, livrée et transmise.</p></div>
+<div class="surf next"><span>Surface 6</span><h3>La vôtre</h3><p>En une semaine, j’ai la carte de votre marché. Vos produits, je les apprends avec vos meilleurs vendeurs.</p></div>
+</div>
+<div class="gain-strip"><b>Ce qui ne change pas</b>Recruter, former, faire vendre, gérer. Sur chaque surface, le produit s’est appris. Le métier est resté.</div>
+</section>
 <section class="metrics" aria-label="Quelques repères professionnels"><div class="shell metrics-inner"><div class="metric"><strong>50 + 5</strong><span>agents et managers recrutés (Finexial)</span></div><div class="metric"><strong>× 5</strong><span>chiffre d’affaires en 8 ans, de 200 000 € à 1 M€ (CD2I)</span></div><div class="metric"><strong>30</strong><span>téléopérateurs sur le plateau Finexial (12 chez CD2I)</span></div><div class="metric"><strong>Top 10</strong><span>sur 100 conseillers, sans portefeuille de départ (Allianz)</span></div></div></section>
 
 <span id="adn"></span>
